@@ -1,0 +1,6 @@
+# Automatically normalize the line endings for all text-based files.
+* text=auto
+
+# Declare the files that will always have LF line endings.
+*.js  text eol=lf
+*.jsx text eol=lf
