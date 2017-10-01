@@ -1,0 +1,28 @@
+{
+  "name": "inferno-i18next",
+  "description": "A translation utility for Inferno components using the i18next ecosystem.",
+  "version": "1.0.0",
+  "keywords": [
+    "i18n",
+    "l10n",
+    "internationalization",
+    "localization",
+    "translation",
+    "inferno",
+    "i18next"
+  ],
+  "license": "MIT",
+  "author": "Midnite Ninja Innovations",
+  "homepage": "https://bitbucket.org/midniteninja/inferno-i18next",
+  "repository": "bitbucket:midniteninja/inferno-i18next",
+  "bugs": {
+    "url": "https://bitbucket.org/midniteninja/inferno-i18next/issues"
+  },
+  "main": "dist/bundle.js",
+  "browser": "dist/bundle.js",
+  "jsnext:main": "src/index.js",
+  "module": "src/index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {}
+}
