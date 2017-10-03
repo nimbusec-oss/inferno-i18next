@@ -9,5 +9,10 @@
     "test": {
       "presets": ["es2015"]
     }
-  }
+  },
+  "plugins": [
+    ["inferno", {
+      "imports": true
+    }]
+  ]
 }
