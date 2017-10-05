@@ -1,3 +1,21 @@
 {
-  "extends": ["airbnb-base", "plugin:inferno/recommended"]
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb-base",
+    "plugin:inferno/recommended"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    }
+  },
+  "rules": {
+    "padded-blocks": "off",
+    "prefer-template": "off"
+  }
 }
