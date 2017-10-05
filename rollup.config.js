@@ -17,7 +17,10 @@ export default {
     id: 'inferno-i18next',
   },
   plugins: [
-    babel({exclude: 'node_modules/**'}),
+    babel({
+      exclude: 'node_modules/**',
+      plugins: ['external-helpers'],
+    }),
     commonjs(),
     nodeResolve({
       browser: true,
