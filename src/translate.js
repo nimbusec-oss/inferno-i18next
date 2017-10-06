@@ -109,7 +109,7 @@ function getDisplayName(component) {
 
 export default function wrap(arg) {
   if (isString(arg) || isArray(arg)) {
-    return TargetComponent => translate(TargetComponent, arg);
+    return component => translate(component, arg);
   }
   return translate(arg);
 }
