@@ -1,2 +1,2 @@
-export { Provider } from './Provider';
-export { translate } from './translate';
+export { default as Provider } from './Provider';
+export { default as translate } from './translate';

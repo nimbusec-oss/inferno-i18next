@@ -6,8 +6,8 @@ export default class Provider extends Component {
   /**
    * Create a new i18next provider instance.
    *
-   * @param {any} props
-   * @param {any} context
+   * @param {object} props
+   * @param {object} context
    * @throws {object} Error
    * @returns {void}
    */
@@ -30,7 +30,7 @@ export default class Provider extends Component {
   /**
    * Handle the new props before it gets accepted.
    *
-   * @param {any} nextProps
+   * @param {object} nextProps
    * @throws {object} Error
    * @returns {void}
    */
