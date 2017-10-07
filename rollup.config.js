@@ -10,8 +10,10 @@ export default {
   input: 'src/index.js',
   external: Object.keys(peerDependencies),
   globals: {
-    'i18next': 'i18next',
     'inferno': 'Inferno',
+    'inferno-component': 'Inferno.Component',
+    'inferno-create-element': 'Inferno.createElement',
+    'inferno-shared': 'Inferno.Shared',
   },
   plugins: [
     babel({
