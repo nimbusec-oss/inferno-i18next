@@ -10,6 +10,7 @@ const resources = {
     },
   },
 };
+
 i18next.init({
   lng: 'en',
   resources,
