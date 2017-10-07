@@ -1,6 +1,11 @@
 inferno-i18next
 ===============
 
+[![Build Status](https://img.shields.io/circleci/project/bitbucket/midniteninja/inferno-i18next.svg?style=flat-square)](https://circleci.com/bb/midniteninja/inferno-i18next)
+[![Coverage Status](https://img.shields.io/codecov/c/bitbucket/midniteninja/inferno-i18next.svg?style=flat-square)](https://codecov.io/bb/midniteninja/inferno-i18next)
+[![Latest Version](https://img.shields.io/npm/v/inferno-i18next.svg?style=flat-square)](https://www.npmjs.com/package/inferno-i18next)
+[![License](https://img.shields.io/npm/l/inferno-18next.svg?style=flat-square)](https://www.npmjs.com/package/inferno-18next)
+
 **inferno-i18next** is a translation utility for Inferno components using the [i18next](https://github.com/i18next/i18next) ecosystem.
 
 ## Features
