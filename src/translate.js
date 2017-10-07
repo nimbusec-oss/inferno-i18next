@@ -7,6 +7,7 @@ import { isArray, isString, throwError } from 'inferno-shared';
  *
  * @param {object} TargetComponent
  * @param {string|array} ns
+ * @returns {object}
  */
 function translate(TargetComponent, ns) {
   class Translate extends Component {

@@ -5,7 +5,6 @@ import createElement from 'inferno-create-element';
 
 describe('translate', () => {
   const container = document.createElement('div');
-  container.setAttribute('id', 'root');
 
   function Foo(props) {
     return props.t('foo');
@@ -13,11 +12,6 @@ describe('translate', () => {
   function Nico(props) {
     return props.t('nico');
   }
-
-  beforeEach(() => {
-    document.body.innerHTML = '';
-    document.body.appendChild(container);
-  });
 
   //    _____      _____  .___ _______
   //   /     \    /  _  \ |   |\      \
