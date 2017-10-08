@@ -11,8 +11,8 @@ inferno-i18next
 ## Features
 
 - Super simple to use.
-- Lightweight package.
 - 100% pure, no inferno-compat.
+- Lightweight package (1.51 kB gzip).
 - Renders in client-side and server-side.
 
 ## Installation
