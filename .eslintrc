@@ -1,7 +1,9 @@
 {
-  "parser": "babel-eslint",
+	"parser": "babel-eslint",
+	"plugins": [
+		"inferno"
+	],
   "extends": [
-    "airbnb-base",
     "plugin:inferno/recommended"
   ],
   "rules": {

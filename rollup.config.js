@@ -1,4 +1,4 @@
-import { peerDependencies } from './package.json';
+import { dependencies, peerDependencies } from './package.json';
 import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
 
@@ -6,11 +6,14 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 export default {
   input: 'src/index.js',
-  external: Object.keys(peerDependencies),
+  external: Object.keys(dependencies).concat(Object.keys(peerDependencies)),
   globals: {
-    'inferno-component': 'Inferno.Component',
-    'inferno-create-element': 'Inferno.createElement',
-    'inferno-shared': 'Inferno.Shared',
+		'inferno': 'Inferno',
+		'inferno-vnode-flags': 'VNodeFlags',
+    'inferno-component': 'Component',
+    'inferno-create-element': 'createElement',
+		'inferno-shared': 'infernoShared',
+		'html-parse-stringify2': 'HTML'
   },
   plugins: [
     babel({

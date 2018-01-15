@@ -1,19 +1,7 @@
 inferno-i18next
 ===============
 
-[![Build Status](https://img.shields.io/circleci/project/bitbucket/midniteninja/inferno-i18next.svg?style=flat-square)](https://circleci.com/bb/midniteninja/inferno-i18next)
-[![Coverage Status](https://img.shields.io/codecov/c/bitbucket/midniteninja/inferno-i18next.svg?style=flat-square)](https://codecov.io/bb/midniteninja/inferno-i18next)
-[![Latest Version](https://img.shields.io/npm/v/inferno-i18next.svg?style=flat-square)](https://www.npmjs.com/package/inferno-i18next)
-[![License](https://img.shields.io/npm/l/inferno-i18next.svg?style=flat-square)](https://bitbucket.org/midniteninja/inferno-i18next/src/master/LICENSE)
-
-**inferno-i18next** is a translation utility for Inferno components using the [i18next](https://github.com/i18next/i18next) ecosystem.
-
-## Features
-
-- Super simple to use.
-- 100% pure, no inferno-compat.
-- Lightweight package (1.51 kB gzip).
-- Renders in client-side and server-side.
+**inferno-i18next** is a translation utility for Inferno components based on inferno-i18next by Midnite Ninja Innovations (https://bitbucket.org/midniteninja/inferno-i18next) and react-i18next by i18next (https://github.com/i18next/react-i18next)
 
 ## Installation
 
@@ -29,11 +17,30 @@ Via CDN: (use the `infernoI18Next` variable)
 <script src="https://unpkg.com/inferno-i18next/dist/bundle.min.js"></script>
 ```
 
-## Resources
+## Documentation
 
-- [Documentation](https://bitbucket.org/midniteninja/inferno-i18next/src/master/DOC.md)
-- [Release Notes](https://bitbucket.org/midniteninja/inferno-i18next/src/master/HISTORY.md)
+**Init:** 
+```
+Inferno.render(
+	<Provider i18next={i18next}>
+		<App />
+	</Provider>,
+	document.getElementById("app")
+);
+```
 
-## License
+**Usage T Component:**
+```
+<T i18nKey="userMessagesUnread">
+	Hello <strong title={t('nameTitle')}>{{name}}</strong>, you have <span>{{count}}</span> unread message. <Link to="/msgs">Go to messages</Link>.
+</T>
+```
 
-MIT © Midnite Ninja Innovations. See the [LICENSE](https://bitbucket.org/midniteninja/inferno-i18next/src/master/LICENSE) file for full license text.
+```
+"userMessagesUnread": "Hello <1><0>{{name}}</0></1>, you have <3><2>{{count}}</2></3> unread message. <5>Go to message</5>.",
+"userMessagesUnread_plural": "Hello <1><0>{{name}}</0></1>, you have <3><2>{{count}}</2></3> unread messages.  <5>Go to messages</5>.",
+```
+
+**Further Information:**
+The usage is very similar to react-i18next, therefore you can use the documents provided by them: 
+[React-i18next docs] (https://react.i18next.com/)
