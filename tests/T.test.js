@@ -1,7 +1,8 @@
 import i18next, { resources } from './i18next';
+import { render } from 'inferno';
+import { createElement } from 'inferno-create-element';
+
 import { Provider, T } from './../src';
-import Inferno from 'inferno';
-import createElement from 'inferno-create-element';
 
 describe('T', () => {
 	const container = document.createElement('div');
@@ -19,39 +20,39 @@ describe('T', () => {
 
 	test('single translation', () => {
 		const children = createElement(Provider, { i18next }, <T i18nKey="foo">#</T>);
-		Inferno.render(children, container);
+		render(children, container);
 		expect(container.children[0].innerHTML).toBe(resources.en.translation.foo);
 	});
 
 	test('wrapped translation', () => {
 		const children = createElement(Provider, { i18next }, <T i18nKey="bar">#<a href="asdf.com">#</a></T>);
-		Inferno.render(children, container);
+		render(children, container);
 		expect(container.children[0].innerHTML).toBe('<a href=\"asdf.com\">bar</a>');
 	});
 
 	test('interpolation translation', () => {
 		const count = 5
 		const children = createElement(Provider, { i18next }, <T i18nKey="baz">#<a href="asdf.com">{{count}}</a></T>);
-		Inferno.render(children, container);
+		render(children, container);
 		expect(container.children[0].innerHTML).toBe('<a href=\"asdf.com\">5</a>');
 	});
 
 	test('interpolation format translation', () => {
 		const name = 'inferno'
 		const children = createElement(Provider, { i18next }, <T i18nKey="quux">#<a href="asdf.com">{{name, format: 'uppercase'}}</a></T>);
-		Inferno.render(children, container);
+		render(children, container);
 		expect(container.children[0].innerHTML).toBe('<a href=\"asdf.com\">INFERNO</a>');
 	});
 
 	test('empty element', () => {
 		const children = createElement(Provider, { i18next }, <T i18nKey="qux">#<b />#</T>);
-		Inferno.render(children, container);
+		render(children, container);
 		expect(container.children[0].innerHTML).toBe('qux<b></b>');
 	});
 
 	test('plural translation', () => {
 		const children = createElement(Provider, { i18next }, <T i18nKey="qux" count={2}>#<b />#</T>);
-		Inferno.render(children, container);
+		render(children, container);
 		expect(container.children[0].innerHTML).toBe('quxes<b></b>');
 	});
 
@@ -71,14 +72,14 @@ describe('T', () => {
 	test('wrong object declaration warning', () => {
 		const count = 5
 		const children = createElement(Provider, { i18next }, <T i18nKey="baz">#<a href="asdf.com">{count}</a></T>);
-		Inferno.render(children, container);
+		render(children, container);
 		expect(container.children[0].innerHTML).toBe('<a href=\"asdf.com\">5</a>');
 	});
 
 	test('dual object declaration warning', () => {
 		const count = 5
 		const children = createElement(Provider, { i18next }, <T i18nKey="baz">#<a href="asdf.com">{{foo: 5, bar:3}}</a></T>);
-		Inferno.render(children, container);
+		render(children, container);
 		expect(container.children[0].innerHTML).toBe('<a href=\"asdf.com\"></a>');
 	});
 });

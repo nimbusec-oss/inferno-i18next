@@ -1,6 +1,6 @@
 import i18next from './i18next';
 import { Provider } from './../src';
-import createElement from 'inferno-create-element';
+import { createElement } from 'inferno-create-element';
 
 describe('Provider', () => {
   const children = createElement('div');

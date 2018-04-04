@@ -1,4 +1,4 @@
-import Component from 'inferno-component';
+import { Component } from 'inferno';
 import { throwError } from 'inferno-shared';
 
 export default class Provider extends Component {

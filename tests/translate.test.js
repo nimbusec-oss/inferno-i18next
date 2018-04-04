@@ -1,7 +1,7 @@
 import i18next, { resources } from './i18next';
 import { Provider, translate } from './../src';
 import { render } from 'inferno';
-import createElement from 'inferno-create-element';
+import { createElement } from 'inferno-create-element';
 
 describe('translate', () => {
   const container = document.createElement('div');

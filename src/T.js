@@ -1,7 +1,7 @@
-import Inferno from 'inferno';
-import Component from 'inferno-component';
-import createElement from 'inferno-create-element';
-import VNodeFlags from 'inferno-vnode-flags';
+import { Component } from 'inferno';
+import { cloneVNode } from 'inferno-clone-vnode';
+import { createElement } from 'inferno-create-element';
+import { VNodeFlags } from 'inferno-vnode-flags';
 import HTML from 'html-parse-stringify2';
 
 function hasChildren(node) {
@@ -65,7 +65,7 @@ function renderNodes(children, targetString, i18n) {
           mem.push(node.children[0].content); // original: mem.push(child)
         } else if (hasChildren(child)) {
 					const inner = mapAST(getChildren(child), node.children);
-          mem.push(Inferno.cloneVNode(
+          mem.push(cloneVNode(
             child,
             { ...child.props, key: i },
             inner
@@ -86,7 +86,7 @@ function renderNodes(children, targetString, i18n) {
   // call mapAST with having react nodes nested into additional node like
   // we did for the string ast from translation
 	// return the children of that extra node to get expected result
-	const result = mapAST([{ dummy: true, children, flags: 4 }], ast);
+	const result = mapAST([{ dummy: true, children, flags: VNodeFlags.HtmlElement, type: 'div' }], ast);
   return getChildren(result[0]);
 }
 
