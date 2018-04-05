@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('inferno'), require('inferno-shared'), require('inferno-create-element'), require('inferno-clone-vnode'), require('inferno-vnode-flags'), require('html-parse-stringify2')) :
   typeof define === 'function' && define.amd ? define(['exports', 'inferno', 'inferno-shared', 'inferno-create-element', 'inferno-clone-vnode', 'inferno-vnode-flags', 'html-parse-stringify2'], factory) :
-  (factory((global.infernoI18Next = {}),global.Inferno,global.infernoShared,global.createElement,global.infernoCloneVnode,global.VNodeFlags,global.HTML));
+  (factory((global.infernoI18Next = {}),global.Inferno,global.infernoShared,global.createElement,global.cloneVNode,global.VNodeFlags,global.HTML));
 }(this, (function (exports,inferno,infernoShared,infernoCreateElement,infernoCloneVnode,infernoVnodeFlags,HTML) { 'use strict';
 
   HTML = HTML && HTML.hasOwnProperty('default') ? HTML['default'] : HTML;

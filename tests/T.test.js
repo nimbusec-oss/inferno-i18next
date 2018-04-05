@@ -2,7 +2,7 @@ import i18next, { resources } from './i18next';
 import { render } from 'inferno';
 import { createElement } from 'inferno-create-element';
 
-import { Provider, T } from './../src';
+import { Provider, T } from '../src';
 
 describe('T', () => {
 	const container = document.createElement('div');

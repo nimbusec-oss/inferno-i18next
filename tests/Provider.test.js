@@ -1,5 +1,5 @@
 import i18next from './i18next';
-import { Provider } from './../src';
+import { Provider } from '../src';
 import { createElement } from 'inferno-create-element';
 
 describe('Provider', () => {
