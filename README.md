@@ -31,16 +31,16 @@ Inferno.render(
 
 **Usage T Component:**
 ```
-<T i18nKey="userMessagesUnread">
-	Hello <strong title={t('nameTitle')}>{{name}}</strong>, you have <span>{{count}}</span> unread message. <Link to="/msgs">Go to messages</Link>.
+<T i18nKey="userMessagesUnread" count={2} interpolation={{name: "bar", count:5}}>
+	Hello <strong>foo</strong>, you have x unread message. <a href="/msgs">Go to messages</a>
 </T>
 ```
 
 ```
-"userMessagesUnread": "Hello <1><0>{{name}}</0></1>, you have <3><2>{{count}}</2></3> unread message. <5>Go to message</5>.",
-"userMessagesUnread_plural": "Hello <1><0>{{name}}</0></1>, you have <3><2>{{count}}</2></3> unread messages.  <5>Go to messages</5>.",
+"userMessagesUnread": "Hello <1><0>{{name}}</0></1>, you have 1 unread message. <3><0>Go to messages</0></3>.",
+"userMessagesUnread_plural": "Hello <1><0>{{name}}</0></1>, you have {{count}} unread messages. <3><0>Go to messages</0></3>.",
 ```
 
 **Further Information:**
-The usage is very similar to react-i18next, therefore you can use the documents provided by them: 
+The usage is similar to react-i18next, therefore you can use the documents provided by them: 
 [React-i18next docs] (https://react.i18next.com/)

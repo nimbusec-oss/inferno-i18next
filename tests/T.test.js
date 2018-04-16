@@ -25,35 +25,42 @@ describe('T', () => {
 	});
 
 	test('wrapped translation', () => {
-		const children = createElement(Provider, { i18next }, <T i18nKey="bar">#<a href="asdf.com">#</a></T>);
+		const children = createElement(Provider, { i18next }, <T i18nKey="bar"><a href="asdf.com">#</a></T>);
 		render(children, container);
 		expect(container.children[0].innerHTML).toBe('<a href=\"asdf.com\">bar</a>');
 	});
 
 	test('interpolation translation', () => {
 		const count = 5
-		const children = createElement(Provider, { i18next }, <T i18nKey="baz">#<a href="asdf.com">{{count}}</a></T>);
+		const children = createElement(Provider, { i18next }, <T i18nKey="baz" interpolation={{count}}><a href="asdf.com">#</a></T>);
 		render(children, container);
 		expect(container.children[0].innerHTML).toBe('<a href=\"asdf.com\">5</a>');
 	});
 
 	test('interpolation format translation', () => {
 		const name = 'inferno'
-		const children = createElement(Provider, { i18next }, <T i18nKey="quux">#<a href="asdf.com">{{name, format: 'uppercase'}}</a></T>);
+		const children = createElement(Provider, { i18next }, <T i18nKey="quux" interpolation={{name, format: 'uppercase'}}><a href="asdf.com">#</a></T>);
 		render(children, container);
 		expect(container.children[0].innerHTML).toBe('<a href=\"asdf.com\">INFERNO</a>');
 	});
 
 	test('empty element', () => {
-		const children = createElement(Provider, { i18next }, <T i18nKey="qux">#<b />#</T>);
+		const children = createElement(Provider, { i18next }, <T i18nKey="qux">#<b /></T>);
 		render(children, container);
 		expect(container.children[0].innerHTML).toBe('qux<b></b>');
 	});
 
 	test('plural translation', () => {
-		const children = createElement(Provider, { i18next }, <T i18nKey="qux" count={2}>#<b />#</T>);
+		const children = createElement(Provider, { i18next }, <T i18nKey="qux" count={2}>#<b /></T>);
 		render(children, container);
 		expect(container.children[0].innerHTML).toBe('quxes<b></b>');
+	});
+
+	test('wrapped, interpolated and plural translation', () => {
+		const children = createElement(Provider, { i18next }, <T i18nKey="userMessagesUnread" count={2} interpolation={{name: "bar", count:5}}>
+			Hello <strong>foo</strong>, you have 3 unread message. <a href="/msgs">Go to messages</a></T>);
+		render(children, container);
+		expect(container.children[0].innerHTML).toBe('Hello <strong>bar</strong>, you have 5 unread messages. <a href=\"/msgs\">Go to messages</a>.');
 	});
 
 	// _______________________________ ________ __________  _________
@@ -67,19 +74,5 @@ describe('T', () => {
 		expect(() => {
 			new Provider({});
 		}).toThrowError('an instance of i18next is required');
-	});
-
-	test('wrong object declaration warning', () => {
-		const count = 5
-		const children = createElement(Provider, { i18next }, <T i18nKey="baz">#<a href="asdf.com">{count}</a></T>);
-		render(children, container);
-		expect(container.children[0].innerHTML).toBe('<a href=\"asdf.com\">5</a>');
-	});
-
-	test('dual object declaration warning', () => {
-		const count = 5
-		const children = createElement(Provider, { i18next }, <T i18nKey="baz">#<a href="asdf.com">{{foo: 5, bar:3}}</a></T>);
-		render(children, container);
-		expect(container.children[0].innerHTML).toBe('<a href=\"asdf.com\"></a>');
 	});
 });
