@@ -1,4 +1,4 @@
-import { createVNode, Component } from 'inferno';
+import { Component } from 'inferno';
 import { cloneVNode } from 'inferno-clone-vnode';
 import { createElement } from 'inferno-create-element';
 import { VNodeFlags } from 'inferno-vnode-flags';

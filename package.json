@@ -1,7 +1,7 @@
 {
 	"name": "inferno-i18next",
 	"description": "A translation utility for Inferno components using the i18next ecosystem.",
-	"version": "1.0.1",
+	"version": "5.0.4",
 	"keywords": [
 		"i18n",
 		"l10n",
@@ -35,11 +35,11 @@
 		"rollup-plugin-uglify": "^3.0.0"
 	},
 	"dependencies": {
-		"inferno": "^5.0.1",
-		"inferno-clone-vnode": "^5.0.1",
-		"inferno-create-element": "^5.0.1",
-		"inferno-shared": "^5.0.1",
-		"inferno-vnode-flags": "^5.0.1",
+		"inferno": "^5.0.4",
+		"inferno-clone-vnode": "^5.0.4",
+		"inferno-create-element": "^5.0.4",
+		"inferno-shared": "^5.0.4",
+		"inferno-vnode-flags": "^5.0.4",
 		"html-parse-stringify2": "^2.0.1"
 	},
 	"scripts": {

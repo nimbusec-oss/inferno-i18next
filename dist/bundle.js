@@ -6,12 +6,6 @@
 
   HTML = HTML && HTML.hasOwnProperty('default') ? HTML['default'] : HTML;
 
-  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  };
-
   var classCallCheck = function (instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
@@ -283,123 +277,86 @@
   }
 
   function hasChildren(node) {
-    return node && (node.children || node.props && node.props.children);
+  	return node && (node.children || node.props && node.props.children);
   }
 
   function getChildren(node) {
-    return node && (node.children ? node.children : node.props && node.props.children);
+  	return node && (node.children ? node.children : node.props && node.props.children);
   }
 
-  function nodesToString(mem, children) {
-    children = children ? Array.isArray(children) ? children : [children] : [];
+  function renderNodes(children, targetString, i18n, interpolation) {
+  	if (targetString === '') return [];
 
-    children.forEach(function (child, i) {
-      var elementKey = '' + i;
-      if (typeof child === 'string') {
-        mem = '' + mem + child;
-      } else if (hasChildren(child)) {
-        mem = mem + '<' + elementKey + '>' + nodesToString('', getChildren(child), i + 1) + '</' + elementKey + '>';
-      } else if (isValidElement(child)) {
-        mem = mem + '<' + elementKey + '></' + elementKey + '>';
-      } else if ((typeof child === 'undefined' ? 'undefined' : _typeof(child)) === 'object') {
-        var clone = _extends({}, child);
-        var format = clone.format;
-        delete clone.format;
+  	// parse ast from string with additional wrapper tag
+  	// -> avoids issues in parser removing prepending text nodes
+  	var ast = HTML.parse('<0>' + targetString + '</0>');
 
-        var keys = Object.keys(clone);
-        if (format && keys.length === 1) {
-          mem = mem + '<' + elementKey + '>{{' + keys[0] + ', ' + format + '}}</' + elementKey + '>';
-        } else if (keys.length === 1) {
-          mem = mem + '<' + elementKey + '>{{' + keys[0] + '}}</' + elementKey + '>';
-        } else if (console && console.warn) {
-          // not a valid interpolation object (can only contain one value plus format)
-          console.warn('react-i18next: the passed in object contained more than one variable - the object should look like {{ value, format }} where format is optional.', child);
-        }
-      } else if (console && console.warn) {
-        console.warn('react-i18next: the passed in value is invalid - seems you passed in a variable like {number} - please pass in variables for interpolation as full objects like {{number}}.', child);
-      }
-    });
+  	function mapAST(reactNodes, astNodes) {
+  		reactNodes = reactNodes ? Array.isArray(reactNodes) ? reactNodes : [reactNodes] : [];
+  		astNodes = astNodes ? Array.isArray(astNodes) ? astNodes : [astNodes] : [];
 
-    return mem;
-  }
+  		var ne = astNodes.reduce(function (mem, node, i) {
+  			if (node.type === 'tag') {
+  				var child = reactNodes[parseInt(node.name, 10)] || reactNodes[0];
+  				var isElement = isValidElement(child);
 
-  function renderNodes(children, targetString, i18n) {
-    if (targetString === '') return [];
+  				if (hasChildren(child)) {
+  					var inner = mapAST(getChildren(child), node.children);
+  					mem.push(infernoCloneVnode.cloneVNode(child, _extends({}, child.props, { key: i }), inner));
+  				} else {
+  					mem.push(child);
+  				}
+  			} else if (node.type === 'text') {
+  				var interpolated = i18n.services.interpolator.interpolate(node.content, interpolation, i18n.language);
+  				mem.push(interpolated);
+  			}
+  			return mem;
+  		}, []);
+  		return ne;
+  	}
 
-    // parse ast from string with additional wrapper tag
-    // -> avoids issues in parser removing prepending text nodes
-    var ast = HTML.parse('<0>' + targetString + '</0>');
-
-    function mapAST(reactNodes, astNodes) {
-      reactNodes = reactNodes ? Array.isArray(reactNodes) ? reactNodes : [reactNodes] : [];
-      astNodes = astNodes ? Array.isArray(astNodes) ? astNodes : [astNodes] : [];
-
-      return astNodes.reduce(function (mem, node, i) {
-        if (node.type === 'tag') {
-          var child = reactNodes[parseInt(node.name, 10)] || {};
-          var isElement = isValidElement(child);
-
-          if (typeof child === 'string') {
-            mem.push(node.children[0].content); // original: mem.push(child)
-          } else if (hasChildren(child)) {
-            var inner = mapAST(getChildren(child), node.children);
-            mem.push(infernoCloneVnode.cloneVNode(child, _extends({}, child.props, { key: i }), inner));
-          } else if ((typeof child === 'undefined' ? 'undefined' : _typeof(child)) === 'object' && !isElement) {
-            var interpolated = i18n.services.interpolator.interpolate(node.children[0].content, child, i18n.language);
-            mem.push(interpolated);
-          } else {
-            mem.push(child);
-          }
-        } else if (node.type === 'text') {
-          mem.push(node.content);
-        }
-        return mem;
-      }, []);
-    }
-
-    // call mapAST with having react nodes nested into additional node like
-    // we did for the string ast from translation
-    // return the children of that extra node to get expected result
-    var result = mapAST([{ dummy: true, children: children, flags: infernoVnodeFlags.VNodeFlags.HtmlElement, type: 'div' }], ast);
-    return getChildren(result[0]);
+  	// call mapAST with having react nodes nested into additional node like
+  	// we did for the string ast from translation
+  	// return the children of that extra node to get expected result
+  	var result = mapAST([{ dummy: true, children: children, flags: infernoVnodeFlags.VNodeFlags.HtmlElement, type: 'div' }], ast);
+  	return getChildren(result[0]);
   }
 
   function isValidElement(elem) {
-    // is valid inferno vnode https://infernojs.org/docs/api/inferno
-    return (elem.flags & (infernoVnodeFlags.VNodeFlags.Component | infernoVnodeFlags.VNodeFlags.Element)) > 0;
+  	// is valid inferno vnode https://infernojs.org/docs/api/inferno
+  	return (elem.flags & (infernoVnodeFlags.VNodeFlags.Component | infernoVnodeFlags.VNodeFlags.Element)) > 0;
   }
 
   var T = function (_Component) {
-    inherits(T, _Component);
+  	inherits(T, _Component);
 
-    function T() {
-      classCallCheck(this, T);
-      return possibleConstructorReturn(this, (T.__proto__ || Object.getPrototypeOf(T)).apply(this, arguments));
-    }
+  	function T() {
+  		classCallCheck(this, T);
+  		return possibleConstructorReturn(this, (T.__proto__ || Object.getPrototypeOf(T)).apply(this, arguments));
+  	}
 
-    createClass(T, [{
-      key: 'render',
-      value: function render() {
-        var contextAndProps = _extends({ i18next: this.context.i18next, t: this.context.i18next.getFixedT() }, this.props);
-        var children = contextAndProps.children,
-            count = contextAndProps.count,
-            parent = contextAndProps.parent,
-            i18nKey = contextAndProps.i18nKey,
-            i18next = contextAndProps.i18next,
-            tFromContextAndProps = contextAndProps.t,
-            additionalProps = objectWithoutProperties(contextAndProps, ['children', 'count', 'parent', 'i18nKey', 'i18next', 't']);
+  	createClass(T, [{
+  		key: 'render',
+  		value: function render() {
+  			var contextAndProps = _extends({ i18next: this.context.i18next, t: this.context.i18next.getFixedT() }, this.props);
+  			var children = contextAndProps.children,
+  			    count = contextAndProps.count,
+  			    parent = contextAndProps.parent,
+  			    i18nKey = contextAndProps.i18nKey,
+  			    i18next = contextAndProps.i18next,
+  			    tFromContextAndProps = contextAndProps.t,
+  			    additionalProps = objectWithoutProperties(contextAndProps, ['children', 'count', 'parent', 'i18nKey', 'i18next', 't']);
 
-        var t = tFromContextAndProps || i18next.t.bind(i18next);
+  			var t = tFromContextAndProps || i18next.t.bind(i18next);
 
-        var useAsParent = parent !== undefined ? parent : 'div';
+  			var useAsParent = parent !== undefined ? parent : 'div';
 
-        var defaultValue = nodesToString('', children);
-        var translation = i18nKey ? t(i18nKey, { interpolation: { prefix: '#$?', suffix: '?$#' }, defaultValue: defaultValue, count: count }) : defaultValue;
+  			var translation = i18nKey ? t(i18nKey, { interpolation: { prefix: '#$?', suffix: '?$#' }, count: count }) : '';
 
-        return infernoCreateElement.createElement(useAsParent, additionalProps, renderNodes(children, translation, i18next));
-      }
-    }]);
-    return T;
+  			return infernoCreateElement.createElement(useAsParent, additionalProps, renderNodes(children, translation, i18next, contextAndProps.interpolation));
+  		}
+  	}]);
+  	return T;
   }(inferno.Component);
 
   exports.Provider = Provider;
