@@ -31,15 +31,9 @@
 		"jest": "^23.6.0",
 		"rollup": "^0.66.6",
 		"rollup-plugin-babel": "^4.0.3",
-		"rollup-plugin-uglify": "^6.0.0",
-		"html-parse-stringify2": "^2.0.1",
-		"inferno": "^6.0.3",
-		"inferno-clone-vnode": "^6.0.3",
-		"inferno-create-element": "^6.0.3",
-		"inferno-shared": "^6.0.3",
-		"inferno-vnode-flags": "^6.0.3"
+		"rollup-plugin-uglify": "^6.0.0"
 	},
-	"peerDependencies": {
+	"dependencies": {
 		"html-parse-stringify2": "^2.0.1",
 		"inferno": "^6.0.3",
 		"inferno-clone-vnode": "^6.0.3",
