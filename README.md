@@ -37,8 +37,8 @@ Inferno.render(
 ```
 
 ```
-"userMessagesUnread": "Hello <1><0>{{name}}</0></1>, you have 1 unread message. <3><0>Go to messages</0></3>.",
-"userMessagesUnread_plural": "Hello <1><0>{{name}}</0></1>, you have {{count}} unread messages. <3><0>Go to messages</0></3>.",
+"userMessagesUnread": "Hello <1>{{name}}</1>, you have 1 unread message. <3>Go to messages</3>.",
+"userMessagesUnread_plural": "Hello <1>{{name}}</1>, you have {{count}} unread messages. <3>Go to messages</3>.",
 ```
 
 **Further Information:**

@@ -56,6 +56,13 @@ describe('T', () => {
 		expect(container.children[0].innerHTML).toBe('quxes<b></b>');
 	});
 
+	test('wrapped, interpolated and single translation', () => {
+		const children = createElement(Provider, { i18next }, <T i18nKey="userMessagesUnread" interpolation={{name: "bar", count:2}}>
+			Hello <strong>foo</strong>, you have 3 unread message. <a href="/msgs">Go to messages</a></T>);
+		render(children, container);
+		expect(container.children[0].innerHTML).toBe('Hello <strong>bar</strong>, you have 2 unread messages. <a href=\"/msgs\">Go to messages</a>.');
+	});
+
 	test('wrapped, interpolated and plural translation', () => {
 		const children = createElement(Provider, { i18next }, <T i18nKey="userMessagesUnread" count={2} interpolation={{name: "bar", count:5}}>
 			Hello <strong>foo</strong>, you have 3 unread message. <a href="/msgs">Go to messages</a></T>);

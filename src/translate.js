@@ -11,28 +11,6 @@ import { isArray, isString, throwError } from 'inferno-shared';
  */
 function translate(TargetComponent, ns) {
   class Translate extends Component {
-
-    /**
-     * Provided i18next instance.
-     *
-     * @type {object}
-     */
-    i18next;
-
-    /**
-     * Namespace/s to be used.
-     *
-     * @type {string|array}
-     */
-    ns;
-
-    /**
-     * Fixed i18next translate function.
-     *
-     * @type {function}
-     */
-    t;
-
     /**
      * Create a new translate HOC instance.
      *

@@ -1,8 +1,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('inferno'), require('inferno-shared'), require('inferno-create-element'), require('inferno-clone-vnode'), require('inferno-vnode-flags'), require('html-parse-stringify2')) :
   typeof define === 'function' && define.amd ? define(['exports', 'inferno', 'inferno-shared', 'inferno-create-element', 'inferno-clone-vnode', 'inferno-vnode-flags', 'html-parse-stringify2'], factory) :
-  (factory((global.infernoI18Next = {}),global.Inferno,global.infernoShared,global.createElement,global.cloneVNode,global.VNodeFlags,global.HTML));
-}(this, (function (exports,inferno,infernoShared,infernoCreateElement,infernoCloneVnode,infernoVnodeFlags,HTML) { 'use strict';
+  (global = global || self, factory(global.infernoI18Next = {}, global.Inferno, global.infernoShared, global.createElement, global.cloneVNode, global.VNodeFlags, global.HTML));
+}(this, function (exports, inferno, infernoShared, infernoCreateElement, infernoCloneVnode, infernoVnodeFlags, HTML) { 'use strict';
 
   HTML = HTML && HTML.hasOwnProperty('default') ? HTML['default'] : HTML;
 
@@ -231,24 +231,6 @@
       _inherits(Translate, _Component);
 
       /**
-       * Provided i18next instance.
-       *
-       * @type {object}
-       */
-
-      /**
-       * Namespace/s to be used.
-       *
-       * @type {string|array}
-       */
-
-      /**
-       * Fixed i18next translate function.
-       *
-       * @type {function}
-       */
-
-      /**
        * Create a new translate HOC instance.
        *
        * @param {object} props
@@ -262,12 +244,6 @@
         _classCallCheck(this, Translate);
 
         _this = _possibleConstructorReturn(this, _getPrototypeOf(Translate).call(this, props, context));
-
-        _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "i18next", void 0);
-
-        _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "ns", void 0);
-
-        _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "t", void 0);
 
         if (!context.i18next) {
           infernoShared.throwError('an instance of i18next must be provided');
@@ -453,9 +429,9 @@
   }(inferno.Component);
 
   exports.Provider = Provider;
-  exports.translate = wrap;
   exports.T = T;
+  exports.translate = wrap;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
