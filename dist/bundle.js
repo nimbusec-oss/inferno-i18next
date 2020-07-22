@@ -2,9 +2,9 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('inferno'), require('inferno-shared'), require('inferno-create-element'), require('inferno-clone-vnode'), require('inferno-vnode-flags'), require('html-parse-stringify2')) :
   typeof define === 'function' && define.amd ? define(['exports', 'inferno', 'inferno-shared', 'inferno-create-element', 'inferno-clone-vnode', 'inferno-vnode-flags', 'html-parse-stringify2'], factory) :
   (global = global || self, factory(global.infernoI18Next = {}, global.Inferno, global.infernoShared, global.createElement, global.cloneVNode, global.VNodeFlags, global.HTML));
-}(this, function (exports, inferno, infernoShared, infernoCreateElement, infernoCloneVnode, infernoVnodeFlags, HTML) { 'use strict';
+}(this, (function (exports, inferno, infernoShared, infernoCreateElement, infernoCloneVnode, infernoVnodeFlags, HTML) { 'use strict';
 
-  HTML = HTML && HTML.hasOwnProperty('default') ? HTML['default'] : HTML;
+  HTML = HTML && Object.prototype.hasOwnProperty.call(HTML, 'default') ? HTML['default'] : HTML;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -43,20 +43,35 @@
     return obj;
   }
 
-  function _objectSpread(target) {
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+      keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i] != null ? arguments[i] : {};
-      var ownKeys = Object.keys(source);
 
-      if (typeof Object.getOwnPropertySymbols === 'function') {
-        ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
-          return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-        }));
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(Object(source)).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
       }
-
-      ownKeys.forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
     }
 
     return target;
@@ -91,6 +106,19 @@
     };
 
     return _setPrototypeOf(o, p);
+  }
+
+  function _isNativeReflectConstruct() {
+    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+    if (Reflect.construct.sham) return false;
+    if (typeof Proxy === "function") return true;
+
+    try {
+      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   function _objectWithoutPropertiesLoose(source, excluded) {
@@ -145,10 +173,29 @@
     return _assertThisInitialized(self);
   }
 
-  var Provider =
-  /*#__PURE__*/
-  function (_Component) {
+  function _createSuper(Derived) {
+    var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+    return function _createSuperInternal() {
+      var Super = _getPrototypeOf(Derived),
+          result;
+
+      if (hasNativeReflectConstruct) {
+        var NewTarget = _getPrototypeOf(this).constructor;
+
+        result = Reflect.construct(Super, arguments, NewTarget);
+      } else {
+        result = Super.apply(this, arguments);
+      }
+
+      return _possibleConstructorReturn(this, result);
+    };
+  }
+
+  var Provider = /*#__PURE__*/function (_Component) {
     _inherits(Provider, _Component);
+
+    var _super = _createSuper(Provider);
 
     /**
      * Create a new i18next provider instance.
@@ -163,7 +210,7 @@
 
       _classCallCheck(this, Provider);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Provider).call(this, props, context));
+      _this = _super.call(this, props, context);
 
       if (!props.i18next) {
         infernoShared.throwError('an instance of i18next is required');
@@ -225,10 +272,10 @@
    */
 
   function translate(TargetComponent, ns) {
-    var Translate =
-    /*#__PURE__*/
-    function (_Component) {
+    var Translate = /*#__PURE__*/function (_Component) {
       _inherits(Translate, _Component);
+
+      var _super = _createSuper(Translate);
 
       /**
        * Create a new translate HOC instance.
@@ -243,7 +290,7 @@
 
         _classCallCheck(this, Translate);
 
-        _this = _possibleConstructorReturn(this, _getPrototypeOf(Translate).call(this, props, context));
+        _this = _super.call(this, props, context);
 
         if (!context.i18next) {
           infernoShared.throwError('an instance of i18next must be provided');
@@ -288,7 +335,7 @@
       }, {
         key: "render",
         value: function render() {
-          return infernoCreateElement.createElement(TargetComponent, _objectSpread({}, this.props, {
+          return infernoCreateElement.createElement(TargetComponent, _objectSpread2(_objectSpread2({}, this.props), {}, {
             t: this.t,
             i18next: this.i18next
           }));
@@ -352,7 +399,7 @@
 
           if (hasChildren(child)) {
             var inner = mapAST(getChildren(child), node.children);
-            mem.push(infernoCloneVnode.cloneVNode(child, _objectSpread({}, child.props, {
+            mem.push(infernoCloneVnode.cloneVNode(child, _objectSpread2(_objectSpread2({}, child.props), {}, {
               key: i
             }), inner));
           } else {
@@ -385,21 +432,21 @@
     return (elem.flags & (infernoVnodeFlags.VNodeFlags.Component | infernoVnodeFlags.VNodeFlags.Element)) > 0;
   }
 
-  var T =
-  /*#__PURE__*/
-  function (_Component) {
+  var T = /*#__PURE__*/function (_Component) {
     _inherits(T, _Component);
+
+    var _super = _createSuper(T);
 
     function T() {
       _classCallCheck(this, T);
 
-      return _possibleConstructorReturn(this, _getPrototypeOf(T).apply(this, arguments));
+      return _super.apply(this, arguments);
     }
 
     _createClass(T, [{
       key: "render",
       value: function render() {
-        var contextAndProps = _objectSpread({
+        var contextAndProps = _objectSpread2({
           i18next: this.context.i18next,
           t: this.context.i18next.getFixedT()
         }, this.props);
@@ -434,4 +481,4 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
