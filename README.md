@@ -8,13 +8,7 @@ inferno-i18next
 Via NPM:
 
 ```
-$ npm install --save inferno-i18next
-```
-
-Via CDN: (use the `infernoI18Next` variable)
-
-```html
-<script src="https://unpkg.com/inferno-i18next/dist/bundle.min.js"></script>
+$ npm install --save github:nimbusec-oss/inferno-i18next
 ```
 
 ## Documentation
