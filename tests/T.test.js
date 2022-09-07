@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import i18next, { resources } from './i18next';
 import { render } from 'inferno';
 import { createElement } from 'inferno-create-element';
@@ -45,7 +49,7 @@ describe('T', () => {
 	});
 
 	test('empty element', () => {
-		const children = createElement(Provider, { i18next }, <T i18nKey="qux">#<b /></T>);
+		const children = createElement(Provider, { i18next }, <T i18nKey="qux" count={1}>#<b /></T>);
 		render(children, container);
 		expect(container.children[0].innerHTML).toBe('qux<b></b>');
 	});
