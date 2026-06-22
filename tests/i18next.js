@@ -23,17 +23,12 @@ const resources = {
 	},
 };
 
-function format(value, format, lng) {
-	if (format === 'uppercase') return value.toUpperCase();
-	return value;
-}
-
 i18next.init({
 	lng: 'en',
 	resources,
-	interpolation: {
-		format: format
-	}
+});
+i18next.services.formatter.add('uppercase', (value, lng, options) => {
+  return value.toUpperCase();
 });
 
 export { i18next as default, resources };
